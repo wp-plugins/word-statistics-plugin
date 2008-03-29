@@ -29,10 +29,6 @@ score is a percentage. The higher the value, the better the readability.
 
 == Installation ==
 
-This section describes how to install the plugin and get it working.
-
-e.g.
-
 1. Copy fdwordstats.php into wp-content/plugins
 1. Activate the plugin through the 'Plugins' menu in WordPress
 
