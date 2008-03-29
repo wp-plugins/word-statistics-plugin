@@ -33,7 +33,7 @@ This section describes how to install the plugin and get it working.
 
 e.g.
 
-1. Unzip the plugin archive to the `/wp-content/plugins/` directory, keeping the directory structure intact
+1. Copy fdwordstats.php into wp-content/plugins
 1. Activate the plugin through the 'Plugins' menu in WordPress
 
 == Frequently Asked Questions ==
