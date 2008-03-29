@@ -12,6 +12,10 @@ and a word and sentence count.
 
 == Description ==
 
+The primary purpose of this plugin is to show readability statistics about the
+post currently being edited. It includes three different readability statistics
+and a word and sentence count.
+
 Readability analysis is an attempt to show how difficult a text is to read.
 There are several methods of doing readability analysis. The most popular
 methods are used here. The Flesch and Flesch-Kincaid methods use formulas based
