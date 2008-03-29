@@ -3,7 +3,7 @@ Contributors: fd
 Donate link: http://flagrantdisregard.com/wordstats/
 Tags: posts, writing, editing, readability, analysis, word count, sentence count, statistics
 Requires at least: 2.0
-Tested up to: 2.3.3
+Tested up to: 2.5
 Stable tag: trunk
 
 The primary purpose of this plugin is to show readability statistics about the
