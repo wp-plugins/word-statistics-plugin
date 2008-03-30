@@ -6,15 +6,13 @@ Requires at least: 2.0
 Tested up to: 2.5
 Stable tag: trunk
 
-The primary purpose of this plugin is to show readability statistics about the
-post currently being edited. It includes three different readability statistics
-and a word and sentence count.
+Shows readability of the post currently being edited using three different
+readability measurements and also includes a word and sentence count.
 
 == Description ==
 
-The primary purpose of this plugin is to show readability statistics about the
-post currently being edited. It includes three different readability statistics
-and a word and sentence count.
+Shows readability of the post currently being edited using three different
+readability measurements and also includes a word and sentence count.
 
 Readability analysis is an attempt to show how difficult a text is to read.
 There are several methods of doing readability analysis. The most popular
