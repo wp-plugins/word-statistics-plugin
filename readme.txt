@@ -3,16 +3,16 @@ Contributors: fd
 Donate link: http://flagrantdisregard.com/wordstats/
 Tags: posts, writing, editing, readability, analysis, word count, sentence count, statistics
 Requires at least: 2.0
-Tested up to: 2.5
+Tested up to: 2.5.1
 Stable tag: trunk
 
-Shows readability of the post currently being edited using three different
-readability measurements and also includes a word and sentence count.
+Shows word and sentence counts plus a readability analysis of the post
+currently being edited using three different readability measurements.
 
 == Description ==
 
-Shows readability of the post currently being edited using three different
-readability measurements and also includes a word and sentence count.
+Shows word and sentence counts plus a readability analysis of the post
+currently being edited using three different readability measurements.
 
 Readability analysis is an attempt to show how difficult a text is to read.
 There are several methods of doing readability analysis. The most popular
