@@ -42,4 +42,6 @@ Yes. See http://flagrantdisregard.com/wordstats/ for more information.
 
 == Screenshots ==
 
-1. Screenshot of stats on post editing screen.
+1. Screenshot of stats on post editing screen in old WordPress versions.
+
+2. Screenshot of stats on post editing screen in WordPress 2.7+.
