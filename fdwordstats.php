@@ -5,7 +5,7 @@ Plugin URI: http://flagrantdisregard.com/wordstats/
 Description: Computes Gunning-Fog, Flesch, and Flesch-Kincaid readability indexes about posts as they are edited for the purpose of improving their readability.
 Author: John Watson
 Author URI: http://flagrantdisregard.com/
-Version: 1.1
+Version: 1.2
 */ 
 
 /************************************************************
@@ -306,49 +306,55 @@ Admin functions
 function wordstats_draw_admin_footer() {
 	global $wpdb;
 	global $post;
-	
+	global $wp_version;
+
 	if ($post->post_content != '') {
 		$stat = new WordStats;
 		$stat->set_text($post->post_content);
 		$template = '';
-		$template = '<div id="wordstats">'
-			.'<strong>Words:</strong> %d &nbsp; '
-			.'<strong>Sentences:</strong> %d &nbsp; '
-			.'<span onmouseover="wordstatsrollover(\'fog\')" onmouseout="wordstatsrolloff(\'fog\')"><strong>Fog:</strong> %2.1f</span> &nbsp; '
-			.'<span id="wordstatsfogrollover" class="wordstatsrollover">The Gunning-Fog index gives the number of years of education needed to understand the text.  Short, plain sentences score better than long, complicated sentences.  Based on words per sentence and "hard" words per sentence.</span>'
-			.'<span onmouseover="wordstatsrollover(\'kincaid\')" onmouseout="wordstatsrolloff(\'kincaid\')"><strong>Kincaid:</strong> %2.1f</span> &nbsp; '
-			.'<span id="wordstatskincaidrollover" class="wordstatsrollover">The Flesch-Kincaid index gives the number of years of education needed to understand the text.  Short, plain sentences score better than long, complicated sentences.  Based on syllables per word and words per sentence.</span>'
-			.'<span onmouseover="wordstatsrollover(\'flesch\')" onmouseout="wordstatsrolloff(\'flesch\')"><strong>Flesch:</strong> %3.0f</span> &nbsp; '
-			.'<span id="wordstatsfleschrollover" class="wordstatsrollover">The Flesch index, usually between 0 and 100, indicates how difficult the text is to read.  The higher the score, the easier the text is to read.  Based on syllables per word and words per sentence.</span>'
-			.'</div>';
-		$pluginHTML = sprintf($template,
-				$stat->get_words(),
-				$stat->get_sentences(),
-				$stat->get_fog(),
-				$stat->get_flesch_kincaid(),
-				$stat->get_flesch()
-			);
-		printf('<script language="javascript" type="text/javascript">
-				function wordstatsrollover(v) {
-					var div = document.getElementById("wordstats"+v+"rollover");
+		if (version_compare($wp_version, "2.7", ">=")) {
+			$template = '<div id="wordstats">'
+				.'<span>Sentences: %d</span> '
+				.'<span title="Score indicates number of years of education required for comprehension.">Fog: %2.1f</span> '
+				.'<span title="Score indicates number of years of education required for comprehension.">Kincaid: %2.1f</span> '
+				.'<span title="Readability score between 0 (worst) and 100 (best).">Flesch: %3.0f</span> '
+				.'</div>';
+			$pluginHTML = sprintf($template,
+					$stat->get_sentences(),
+					$stat->get_fog(),
+					$stat->get_flesch_kincaid(),
+					$stat->get_flesch()
+				);
+			printf('<script language="javascript" type="text/javascript">
+					var div = document.getElementById("post-status-info");
 					if (div != undefined) {
-						div.style.display = "inline";
+						div.innerHTML = div.innerHTML + \'%s\';
 					}
-				}
-				
-				function wordstatsrolloff(v) {
-					var div = document.getElementById("wordstats"+v+"rollover");
+					</script>', str_replace("'", "\'", $pluginHTML)
+				);
+		} else {
+			$template = '<div id="wordstats">'
+				.'<span>Words:</strong> %d</span> '
+				.'<span>Sentences: %d</span> '
+				.'<span title="Score indicates number of years of education required for comprehension.">Fog: %2.1f</span> '
+				.'<span title="Score indicates number of years of education required for comprehension.">Kincaid: %2.1f</span> '
+				.'<span title="Readability score between 0 (worst) and 100 (best).">Flesch: %3.0f</span> '
+				.'</div>';
+			$pluginHTML = sprintf($template,
+					$stat->get_words(),
+					$stat->get_sentences(),
+					$stat->get_fog(),
+					$stat->get_flesch_kincaid(),
+					$stat->get_flesch()
+				);
+			printf('<script language="javascript" type="text/javascript">
+					var div = document.getElementById("titlediv");
 					if (div != undefined) {
-						div.style.display = "none";
+						div.innerHTML = \'%s\' + div.innerHTML;
 					}
-				}
-				
-				var div = document.getElementById("titlediv");
-				if (div != undefined) {
-					div.innerHTML = \'%s\' + div.innerHTML;
-				}
-				</script>', str_replace("'", "\'", $pluginHTML)
-			);
+					</script>', str_replace("'", "\'", $pluginHTML)
+				);
+		}
 	}
 }
 
@@ -357,26 +363,8 @@ function wordstats_draw_admin_footer() {
 function wordstats_draw_admin_header() {
 	echo '
 	<style type="text/css">
-	#wordstats {
-		text-align:left;
-		padding:2px;
-		color: #333;
-		font-size: 10pt;
-		line-height: 12pt;
-		z-index: 100;
-	}
-	
-	.wordstatsrollover {
-		position:absolute;
-		width:200px;
-		margin-left:-8em;
-		margin-top:1.5em;
-		text-align:left;
-		padding:4px;
-		border:2px solid #448abd;
-		background-color:#ddeaf4;
-		color:#000;
-		display:none;
+	#wordstats span {
+		padding-right: 15px;
 	}
 	</style>
 	';
