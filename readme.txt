@@ -3,7 +3,7 @@ Contributors: fd
 Donate link: http://flagrantdisregard.com/wordstats/
 Tags: posts, writing, editing, readability, analysis, word count, sentence count, statistics
 Requires at least: 2.0
-Tested up to: 2.8.1
+Tested up to: 2.8.2
 Stable tag: trunk
 
 Shows word and sentence counts plus a readability analysis of the post
