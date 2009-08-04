@@ -3,7 +3,7 @@ Contributors: fd
 Donate link: http://flagrantdisregard.com/wordstats/
 Tags: posts, writing, editing, readability, analysis, word count, sentence count, statistics
 Requires at least: 2.0
-Tested up to: 2.8.2
+Tested up to: 2.8.3
 Stable tag: trunk
 
 Shows word and sentence counts plus a readability analysis of the post
@@ -45,3 +45,8 @@ Yes. See http://flagrantdisregard.com/wordstats/ for more information.
 1. Screenshot of stats on post editing screen in old WordPress versions.
 
 2. Screenshot of stats on post editing screen in WordPress 2.7+.
+
+== Changelog ==
+
+= 1.2 =
+* This is a placeholder for the next release.
