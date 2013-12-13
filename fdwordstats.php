@@ -5,7 +5,7 @@ Plugin URI: http://flagrantdisregard.com/wordstats/
 Description: Computes Gunning-Fog, Flesch, and Flesch-Kincaid readability indexes about posts as they are edited for the purpose of improving their readability.
 Author: John Watson
 Author URI: http://flagrantdisregard.com/
-Version: 1.2
+Version: 1.3
 */ 
 
 /************************************************************
@@ -301,73 +301,35 @@ Admin functions
 ==================================================
 */
 
+function wordstats_add_meta_box() {
+	add_meta_box('wordstats', 'Writing analysis', 'wordstats_meta_box', 'post');
+	add_meta_box('wordstats', 'Writing analysis', 'wordstats_meta_box', 'page');
+}
+
 // Draw the readability statistics for the post
 // being edited and the help rollovers.
-function wordstats_draw_admin_footer() {
+function wordstats_meta_box() {
 	global $wpdb;
 	global $post;
 	global $wp_version;
 
 	if ($post->post_content != '') {
-		$stat = new WordStats;
+		$stat = new WordStats();
 		$stat->set_text($post->post_content);
-		$template = '';
-		if (version_compare($wp_version, "2.7", ">=")) {
-			$template = '<div id="wordstats">'
-				.'<span>Sentences: %d</span> '
-				.'<span title="Score indicates number of years of education required for comprehension.">Fog: %2.1f</span> '
-				.'<span title="Score indicates number of years of education required for comprehension.">Kincaid: %2.1f</span> '
-				.'<span title="Readability score between 0 (worst) and 100 (best).">Flesch: %3.0f</span> '
-				.'</div>';
-			$pluginHTML = sprintf($template,
-					$stat->get_sentences(),
-					$stat->get_fog(),
-					$stat->get_flesch_kincaid(),
-					$stat->get_flesch()
-				);
-			printf('<script language="javascript" type="text/javascript">
-					var div = document.getElementById("post-status-info");
-					if (div != undefined) {
-						div.innerHTML = div.innerHTML + \'%s\';
-					}
-					</script>', str_replace("'", "\'", $pluginHTML)
-				);
-		} else {
-			$template = '<div id="wordstats">'
-				.'<span>Words:</strong> %d</span> '
-				.'<span>Sentences: %d</span> '
-				.'<span title="Score indicates number of years of education required for comprehension.">Fog: %2.1f</span> '
-				.'<span title="Score indicates number of years of education required for comprehension.">Kincaid: %2.1f</span> '
-				.'<span title="Readability score between 0 (worst) and 100 (best).">Flesch: %3.0f</span> '
-				.'</div>';
-			$pluginHTML = sprintf($template,
-					$stat->get_words(),
-					$stat->get_sentences(),
-					$stat->get_fog(),
-					$stat->get_flesch_kincaid(),
-					$stat->get_flesch()
-				);
-			printf('<script language="javascript" type="text/javascript">
-					var div = document.getElementById("titlediv");
-					if (div != undefined) {
-						div.innerHTML = \'%s\' + div.innerHTML;
-					}
-					</script>', str_replace("'", "\'", $pluginHTML)
-				);
-		}
+		$template =
+			'<table width="100%%"><tr>'
+			.'<td align="left" width="35%%">Sentences<br>%d</td> '
+			.'<td align="left" width="20%%" title="Score indicates number of years of education required for comprehension.">Fog<br>%2.1f</td> '
+			.'<td align="left" width="25%%" title="Score indicates number of years of education required for comprehension.">Kincaid<br>%2.1f</td> '
+			.'<td align="left" width="20%%" title="Readability score between 0 (worst) and 100 (best).">Flesch<br>%3.0f</td> '
+			.'</tr></table>';
+		printf($template,
+			$stat->get_sentences(),
+			$stat->get_fog(),
+			$stat->get_flesch_kincaid(),
+			$stat->get_flesch()
+		);
 	}
-}
-
-// Inject some CSS into the header for displaying
-// the readability stats of the post being edited.
-function wordstats_draw_admin_header() {
-	echo '
-	<style type="text/css">
-	#wordstats span {
-		padding-right: 15px;
-	}
-	</style>
-	';
 }
 
 /*
@@ -451,6 +413,4 @@ function wordstats_flesch_kincaid($content) {
 Add action hooks
 ==================================================
 */
-add_action('admin_head', 'wordstats_draw_admin_header');
-add_action('admin_footer', 'wordstats_draw_admin_footer');
-?>
+add_action('add_meta_boxes', 'wordstats_add_meta_box');
