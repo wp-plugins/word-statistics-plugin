@@ -40,12 +40,6 @@ score is a percentage. The higher the value, the better the readability.
 
 Yes. See http://flagrantdisregard.com/wordstats/ for more information.
 
-== Screenshots ==
-
-1. Screenshot of stats on post editing screen in old WordPress versions.
-
-2. Screenshot of stats on post editing screen in WordPress 2.7+.
-
 == Changelog ==
 
 = 1.3 =
